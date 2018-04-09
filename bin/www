@@ -14,6 +14,11 @@ mongodb.dbInit();
  * Get port from environment and store in Express.
  */
 
+process.on("uncaughtException",function(err){
+  console.error("caught error: ", err.stack);
+})
+
+
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
