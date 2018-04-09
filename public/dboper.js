@@ -19,6 +19,13 @@ function dbInit(mongoName)
 
 function dbInsert(templateName, data, callback)
 {
+    if (!dbhandle)
+    {
+        console.error("dbhandle is null");
+        callback(1);
+        return;
+    }
+
     var collection = dbhandle.collection(templateName);
 
     collection.insertOne(data, callback);
@@ -26,15 +33,43 @@ function dbInsert(templateName, data, callback)
 
 function dbFind(templateName, query, callback)
 {
+    if (!dbhandle)
+    {
+        console.error("dbhandle is null");
+        callback(null);
+        return;
+    }
+
     var collection = dbhandle.collection(templateName);
 
-    var temp = collection.find(query).toArray(function(err,date){
+    collection.find(query).toArray(function(err,date){
         callback(date);
     });
 }
 
-function dbClear(templateName, callback)
+function dbUpsert(templateName, filter, update, callback)
 {
+    if (!dbhandle)
+    {
+        console.error("dbhandle is null");
+        callback(null);
+        return;
+    }
+
+    var collection = dbhandle.collection(templateName);
+
+    collection.findOneAndUpdate(filter, update, {upsert:true}, callback)
+}
+
+function dbClear(templateName, callback)
+{    
+    if (!dbhandle)
+    {
+        console.error("dbhandle is null");
+        callback(1);
+        return;
+    }
+
     dbhandle.dropCollection(templateName, callback);
 }
 
