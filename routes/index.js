@@ -26,6 +26,7 @@ router.get('/gettemplate', function(req, res, next){
     console.log("access gettemplate");
     var temId = req.query.pageid || req.body.pageid;
     dboper.dbFind(TEMPLATE_CFG, {pageid : pageid}, function(data){
+        console.log("find finish ",data)
         res.json({
             result: 0,
             reason: "success",
