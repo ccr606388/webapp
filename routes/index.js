@@ -23,6 +23,7 @@ router.use('/cfgtemplate', function(req, res, next){
 });
 
 router.get('/gettemplate', function(req, res, next){
+    console.log("access gettemplate");
     var temId = req.query.pageid || req.body.pageid;
     dboper.dbFind(TEMPLATE_CFG, {pageid : pageid}, function(data){
         res.json({
