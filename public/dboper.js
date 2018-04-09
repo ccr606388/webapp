@@ -28,8 +28,9 @@ function dbFind(templateName, query, callback)
 {
     var collection = dbhandle.collection(templateName);
 
-    var temp = collection.find(query).toArray();
-    callback(temp);
+    var temp = collection.find(query).toArray(function(err,date){
+        callback(date);
+    });
 }
 
 function dbClear(templateName, callback)
