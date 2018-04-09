@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var dbhandle = null;
 // Connection URL
-var url = 'mongodb://localhost:27017';
+var url = 'mongodb://101.200.40.203:27017';
 
 // Database Name
 var dbName = 'activity';
@@ -39,11 +39,8 @@ function dbFind(templateName, query, callback)
         callback(null);
         return;
     }
-    console.error("dbhandle is 1");
     var collection = dbhandle.collection(templateName);
-    console.error("dbhandle is 2");
     collection.find(query).toArray(function(err,date){
-        console.error("dbhandle is 3");
         callback(date);
     });
 }
