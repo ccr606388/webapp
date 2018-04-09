@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var dbhandle = null;
 // Connection URL
-var url = 'mongodb://101.200.40.203:27017';
+var url = 'mongodb://localhost:27017';
 
 // Database Name
 var dbName = 'activity';
