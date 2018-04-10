@@ -82,8 +82,16 @@ router.use('/clearData', function(req, res, next){
 router.use('/exportexcel', function(req, res, next){
     console.log("access listuser");
     var temId = req.query.pageid;
-    dboper.dbFind(TEMPLATE+"_"+temId, {}, function(err){
+    dboper.dbFind(TEMPLATE+"_"+temId, {}, function(err, data){
+        var excel = [];
 
+        data.forEach(function(k) {
+            if (k == 0)
+            {
+                excel.push(Object.keys(data[k]))
+            }
+            excel.push(Object.values(data[k]));
+        });
         var buffer = xlsx.build([
             {
                 name:'sheet1',
