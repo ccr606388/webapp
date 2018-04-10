@@ -40,7 +40,7 @@ function dbFind(templateName, query, callback)
         return;
     }
     var collection = dbhandle.collection(templateName);
-    collection.find(query).toArray(function(err,date){
+    collection.find(query, {projection:{"_id":0}}).toArray(function(err,date){
         callback(err, date);
     });
 }

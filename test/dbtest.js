@@ -37,8 +37,8 @@ setTimeout(function(){
         console.log(data);
     })
     */
-    mongodb.dbUpsert("test_collection", {a:1}, {a:1,b:2,c:3}, function(err){
-        console.log(err)
-    })
+    // mongodb.dbUpsert("test_collection", {a:1}, {a:1,b:2,c:3}, function(err){
+    //     console.log(err)
+    // })
 }, 1000)
 
