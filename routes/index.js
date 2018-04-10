@@ -102,12 +102,27 @@ router.use('/exportexcel', function(req, res, next){
         ]);
         
         //将文件内容插入新的文件中
-        fs.writeFileSync('test1.xlsx',buffer,{'flag':'w'});
+        fs.writeFileSync('/file/test1.xlsx',buffer,{'flag':'w'});
+
+        // var options = {
+        //     root: __dirname + '/public/',
+        //     dotfiles: 'deny',
+        //     headers: {
+        //         'x-timestamp': Date.now(),
+        //         'x-sent': true
+        //     }
+        //   };
         
-        res.json({
-            result: err?1:0,
-            reason: err?"failed with err: "+JSON.stringify(err):"success",
-        })
+          var fileName = req.params.name;
+          res.sendFile('/file/test1.xlsx', function (err) {
+            if (err) {
+              console.log(err);
+              res.status(err.status).end();
+            }
+            else {
+              console.log('Sent:', fileName);
+            }
+          });
     })
 })
 
