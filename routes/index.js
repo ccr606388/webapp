@@ -97,10 +97,11 @@ router.use('/exportexcel', function(req, res, next){
             excel.push(Object.values(v));
         });
 
+        
         var buffer = xlsx.build([
             {
                 name:'sheet1',
-                data:data
+                data:excel
             }        
         ]);
         
