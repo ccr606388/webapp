@@ -56,7 +56,7 @@ function dbUpsert(templateName, filter, update, callback)
 
     var collection = dbhandle.collection(templateName);
 
-    collection.updateOne(filter, update, {upsert:true}, callback)
+    collection.update(filter, update, {upsert:true}, callback)
 }
 
 function dbClear(templateName, callback)
