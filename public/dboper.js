@@ -41,7 +41,7 @@ function dbFind(templateName, query, callback)
     }
     var collection = dbhandle.collection(templateName);
     collection.find(query).toArray(function(err,date){
-        callback(date);
+        callback(err, date);
     });
 }
 
