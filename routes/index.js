@@ -88,6 +88,7 @@ router.use('/exportexcel', function(req, res, next){
         var excel = [];
 
         data.forEach(function(v, k) {
+            console.log(Object.values(v))
             if (k == 0)
             {
                 excel.push(Object.keys(v))
