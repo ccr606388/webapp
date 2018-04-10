@@ -88,6 +88,7 @@ router.use('/exportexcel', function(req, res, next){
         var excel = [];
 
         data.forEach(function(v, k) {
+            console.log(v)
             console.log(Object.values(v))
             if (k == 0)
             {
@@ -95,6 +96,7 @@ router.use('/exportexcel', function(req, res, next){
             }
             excel.push(Object.values(v));
         });
+
         var buffer = xlsx.build([
             {
                 name:'sheet1',
