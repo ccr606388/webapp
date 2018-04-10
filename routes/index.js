@@ -87,14 +87,12 @@ router.use('/exportexcel', function(req, res, next){
     dboper.dbFind(TEMPLATE+"_"+temId, {}, function(err, data){
         var excel = [];
 
-        data.forEach(function(k) {
-            console.log(k)
-            console.log(data[k])
+        data.forEach(function(v, k) {
             if (k == 0)
             {
-                excel.push(Object.keys(data[k]))
+                excel.push(Object.keys(v))
             }
-            excel.push(Object.values(data[k]));
+            excel.push(Object.values(v));
         });
         var buffer = xlsx.build([
             {
