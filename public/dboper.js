@@ -75,5 +75,6 @@ module.exports = {
     dbInit : dbInit,
     dbInsert : dbInsert,
     dbFind : dbFind,
-    dbClear : dbClear
+    dbClear : dbClear,
+    dbUpsert : dbUpsert
 };
