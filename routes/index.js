@@ -15,6 +15,8 @@ router.use('/cfgtemplate', function(req, res, next){
         });
     }
     var temId = req.query.pageid || req.body.pageid;
+    console.log(conf);
+    console.log(temId);
     // console.log("access cfgtemplate");
     dboper.dbUpsert(TEMPLATE_CFG, {pageid : temId}, conf, function(err){
         res.json({
