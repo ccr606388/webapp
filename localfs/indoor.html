@@ -185,47 +185,45 @@
 				submitData: function() {
 					if(vm.addData.name && vm.addData.bumen && vm.addData.city && vm.addData.club && vm.addData.active) {
 
-					mui.ajax('/adduser',{
-						data:{
-		name:vm.addData.name,
-		department:vm.addData.department,
-		city:vm.addData.city,
-		club:vm.addData.club,
-		active:vm.addData.active,
-		pageid:1
-		
-	},
-	dataType:'json',//服务器返回json格式数据
-	type:'post',//HTTP请求类型
-	timeout:10000,//超时时间设置为10秒；
-	headers:{'Content-Type':'application/json'},	              
-	success:function(data){
-		if(data.result == 0){
-			
-		}else{
-			mui.toast(data.reason, {
-							type: 'div'
+						mui.ajax('/adduser', {
+							data: {
+								name: vm.addData.name,
+								department: vm.addData.department,
+								city: vm.addData.city,
+								club: vm.addData.club,
+								active: vm.addData.active,
+								pageid: 1
+
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							success: function(data) {
+								if(data.result == 0) {
+									mui.alert('恭喜您报名成功');
+								} else {
+									mui.toast(data.reason, {
+										type: 'div'
+									});
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.toast('请求发送失败', {
+									type: 'div'
+								});
+							}
 						});
-		}
-	},
-	error:function(xhr,type,errorThrown){
-		mui.toast('请求发送失败', {
-							type: 'div'
-						});
-	}
-});
-//url：		/adduser
-//method：	post
-//			pageid：num		//场馆类为1
-//｝
-//	Response：	｛
-//				result：0/1 		//success/failed
-//				reason：string
-//｝
-
-
-
-
+						//url：		/adduser
+						//method：	post
+						//			pageid：num		//场馆类为1
+						//｝
+						//	Response：	｛
+						//				result：0/1 		//success/failed
+						//				reason：string
+						//｝
 
 					} else {
 						mui.toast('请完整填写表单', {
