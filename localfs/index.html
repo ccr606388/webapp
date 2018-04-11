@@ -1,3 +1,64 @@
-<body>
-    fuck jenkinsttt
-</body>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+	</head>
+
+	<body class="bg">
+		<div class="wrapper">
+			<div class="info">
+				*请根据所选活动类型进行报名
+			</div>
+			<div class="btn" id="indoor">
+				场馆活动
+			</div>
+			<div class="btn" id="outdoor">
+				户外活动
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+
+		function outdoor() {
+			mui.openWindow({
+				url: 'outdoor.html',
+				id: 'outdoor',
+				show: {
+					autoShow: true,
+					aniShow: "slide-in-right"
+				},
+				waiting: {
+					autoShow: true
+				}
+			});
+		}
+
+		function indoor() {
+			mui.openWindow({
+				url: 'indoor.html',
+				id: 'indoor',
+				show: {
+					autoShow: true,
+					aniShow: "slide-in-right"
+				},
+				waiting: {
+					autoShow: true
+				}
+			});
+		}
+
+		document.getElementById('indoor').addEventListener('tap', function() {
+			indoor();
+		});
+		document.getElementById('outdoor').addEventListener('tap', function() {
+			outdoor();
+		});
+	</script>
+
+</html>

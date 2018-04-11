@@ -1,0 +1,8 @@
+{
+	"index.html": {
+		"refer": [
+			"outdoor.html",
+			"indoor.html"
+		]
+	}
+}

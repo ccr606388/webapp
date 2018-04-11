@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/indoor.css" />
+		<script src="js/mui.picker.min.js"></script>
+		<script src="js/vue.min.js"></script>
+	</head>
+
+	<body class="bg">
+		<div id="app">
+			<div class="wrapper">
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<input type="text" placeholder="请输入姓名" v-model="addData.name">
+					</div>
+					<div class="mui-input-row">
+						<input type="text" placeholder="请选择部门" readonly @tap="selctBumen" v-model="addData.bumen">
+					</div>
+					<div class="mui-input-row">
+						<input type="text" placeholder="请选择城市" readonly @tap="selectCity" v-model="addData.city">
+					</div>
+					<div class="mui-input-row">
+						<input type="text" placeholder="请选择俱乐部" readonly @tap="selectClub" v-show="picker3" v-model="addData.club">
+					</div>
+					<div class="mui-input-row">
+						<input type="text" placeholder="请选择活动" readonly @tap="selectActive" v-show="picker4" v-model="addData.active">
+					</div>
+					<img class="submitBtn" src="img/indoor_btn.png" @tap="submitData" />
+				</form>
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+		var bumenPicker = undefined,
+			cityPicker = undefined,
+			clubPicker = undefined,
+			activePicker = undefined;
+		var bumenData = [{
+				value: '部门1',
+				text: '部门1'
+			}, {
+				value: '部门2',
+				text: '部门2'
+			}, {
+				value: '部门3',
+				text: '部门3'
+			}],
+			cityData = [{
+				value: '城市1',
+				text: '城市1'
+			}, {
+				value: '城市2',
+				text: '城市2'
+			}, {
+				value: '城市3',
+				text: '城市3'
+			}],
+			clubData = {
+				'城市1': [{
+					value: '城市1俱乐部1',
+					text: '城市1俱乐部1'
+				}],
+				'城市2': [{
+					value: '城市2俱乐部1',
+					text: '城市2俱乐部1'
+				}, {
+					value: '城市2俱乐部2',
+					text: '城市2俱乐部2'
+				}],
+				'城市3': [{
+					value: '城市3俱乐部1',
+					text: '城市3俱乐部1'
+				}]
+			},
+			activeData = {
+				'城市1俱乐部1': [{
+					value: '111',
+					text: '111'
+				}, {
+					value: '112',
+					text: '112'
+				}, {
+					value: '113',
+					text: '113'
+				}],
+				'城市2俱乐部1': [{
+					value: '211',
+					text: '211'
+				}, {
+					value: '212',
+					text: '212'
+				}],
+				'城市2俱乐部2': [{
+					value: '221',
+					text: '221'
+				}, {
+					value: '222',
+					text: '222'
+				}],
+				'城市3俱乐部1': [{
+					value: '311',
+					text: '311'
+				}, {
+					value: '312',
+					text: '312'
+				}, {
+					value: '313',
+					text: '313'
+				}]
+			}
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				picker3: false,
+				picker4: false,
+				addData: {
+					name: '',
+					bumen: '',
+					city: '',
+					club: '',
+					active: ''
+				}
+			},
+			watch: {
+				'addData.city': function(val, oldval) {
+					vm.picker3 = true;
+					vm.addData.club = '';
+					vm.picker4 = false;
+				},
+				'addData.club': function(val, oldval) {
+					if(val) {
+						vm.picker4 = true;
+					}
+
+				}
+			},
+			methods: {
+				selctBumen: function() {
+					bumenPicker = new mui.PopPicker();
+					bumenPicker.setData(bumenData);
+					bumenPicker.show(function(items) {
+						vm.addData.bumen = items[0].value;
+					});
+				},
+				selectCity: function() {
+					cityPicker = new mui.PopPicker();
+					cityPicker.setData(cityData);
+					if(vm.addData.city) {
+						cityPicker.pickers[0].setSelectedValue(vm.addData.city);
+					}
+					cityPicker.show(function(items) {
+						vm.addData.city = items[0].value;
+					});
+				},
+				selectClub: function() {
+					clubPicker = new mui.PopPicker();
+					clubPicker.setData(clubData[vm.addData.city]);
+					if(vm.addData.club) {
+						clubPicker.pickers[0].setSelectedValue(vm.addData.club);
+					}
+					clubPicker.show(function(items) {
+						vm.addData.club = items[0].value;
+					});
+
+				},
+				selectActive: function() {
+					activePicker = new mui.PopPicker();
+					activePicker.setData(activeData[vm.addData.club]);
+					if(vm.addData.active) {
+						activePicker.pickers[0].setSelectedValue(vm.addData.active);
+					}
+					activePicker.show(function(items) {
+						vm.addData.active = items[0].value;
+					});
+				},
+				submitData: function() {
+					if(vm.addData.name && vm.addData.bumen && vm.addData.city && vm.addData.club && vm.addData.active) {
+
+					mui.ajax('/adduser',{
+						data:{
+		name:vm.addData.name,
+		department:vm.addData.department,
+		city:vm.addData.city,
+		club:vm.addData.club,
+		active:vm.addData.active,
+		pageid:1
+		
+	},
+	dataType:'json',//服务器返回json格式数据
+	type:'post',//HTTP请求类型
+	timeout:10000,//超时时间设置为10秒；
+	headers:{'Content-Type':'application/json'},	              
+	success:function(data){
+		if(data.result == 0){
+			
+		}else{
+			mui.toast(data.reason, {
+							type: 'div'
+						});
+		}
+	},
+	error:function(xhr,type,errorThrown){
+		mui.toast('请求发送失败', {
+							type: 'div'
+						});
+	}
+});
+//url：		/adduser
+//method：	post
+//			pageid：num		//场馆类为1
+//｝
+//	Response：	｛
+//				result：0/1 		//success/failed
+//				reason：string
+//｝
+
+
+
+
+
+					} else {
+						mui.toast('请完整填写表单', {
+							type: 'div'
+						});
+					}
+
+				}
+
+			}
+		});
+	</script>
+
+</html>
