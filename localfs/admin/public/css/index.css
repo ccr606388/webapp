@@ -1,0 +1,72 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+	background-color: #f6f6f6;
+	font-size: 14px;
+}
+
+.content {
+	width: 560px;
+	height: 300px;
+	background-color: #ffffff;
+	/*margin: -80px auto auto;*/
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+}
+
+.top-line {
+	height: 8px;
+	background-color: #4ec1b2;
+}
+.form{
+	margin-top: 77px;
+}
+.content .form .form-group {
+	margin-top: 18px;
+}
+
+label {
+	display: inline-block;
+	width: 160px;
+	margin-right: 20px;
+	text-align: right;
+	color: #333333;
+}
+
+.content .form .form-group input {
+	width: 240px;
+	height: 30px;
+	padding-left: 8px;
+	border-radius: 4px;
+	border: 1px solid #ebebeb;
+	color: #333333;
+	font-size: 12px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	outline: none;
+}
+
+.content .form .form-group input:-ms-input-placeholder,
+.content .form .form-group input::-webkit-input-placeholder {
+	color: #999999;
+}
+.content .form .btn {
+    display: inline-block;
+    background-color: #4ec1b2;
+    color: #ffffff;
+    width: 240px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+}

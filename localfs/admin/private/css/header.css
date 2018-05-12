@@ -1,0 +1,44 @@
+body,ul,li{
+	margin:0;
+	padding:0;
+	font-family: "微软雅黑";
+}
+ul,li{
+	list-style: none;
+}
+.oasis-header {
+  height: 64px;
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #d7dbdd;
+}
+.oasis-header .oasis-header-left {
+  float: left;
+  width: 220px;
+  height: 64px;
+  line-height: 64px;
+  /*padding-left: 30px;*/
+  background: #1bbc9b;
+  color: #ffffff;
+  text-align: center;
+  font-size: 24px;
+}
+.oasis-header .oasis-header-right .oasis-header-main ul {
+  padding-left: 52px;
+  height: 64px;
+  line-height: 62px;
+  float: left;
+}
+.oasis-header .oasis-header-right .oasis-header-main ul li {
+  font-size: 16px;
+  padding: 0 20px;
+  color: #34495e;
+  float: left;
+  cursor: pointer;
+}
+.oasis-header .oasis-header-right .oasis-header-main ul li:hover {
+  color: #1bbc9b;
+}
+.oasis-header .oasis-header-right .oasis-header-main ul li.active {
+  color: #1bbc9b;
+  border-bottom: 2px solid #1bbc9b;
+}
