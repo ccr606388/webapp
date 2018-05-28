@@ -21,6 +21,9 @@
 						<input type="text" placeholder="请输入姓名" v-model="addData.name">
 					</div>
 					<div class="mui-input-row">
+						<input type="text" placeholder="请输入手机号" v-model="addData.phone">
+					</div>
+					<div class="mui-input-row">
 						<input type="text" placeholder="请选择部门" readonly @tap="selctBumen" v-model="addData.bumen.text">
 					</div>
 					<div class="mui-input-row">
@@ -217,19 +220,39 @@
 					}]
 				}]
 			}]
-		var vm = new Vue({
-			el: '#app',
-			data: {
+		var indoorData = localStorage.getItem("indoorData");
+		if(indoorData){
+			indoorData = JSON.parse(indoorData);
+			indoorData = {
+				picker3: true,
+				picker4: true,
+				addData:{
+					name: indoorData.name,
+					phone: indoorData.phone,
+					bumen: indoorData.department,
+					city: indoorData.city,
+					club: indoorData.club,
+					active:indoorData.active
+				}
+				}
+		}else{
+			indoorData = {
 				picker3: false,
 				picker4: false,
 				addData: {
 					name: '',
+					phone: '',
 					bumen: '',
 					city: '',
 					club: '',
 					active: ''
 				}
-			},
+					
+				}
+		}
+		var vm = new Vue({
+			el: '#app',
+			data: indoorData,
 			watch: {
 				'addData.city': function(val, oldval) {
 					vm.picker3 = true;
@@ -286,14 +309,22 @@
 					});
 				},
 				submitData: function() {
-					if (vm.addData.name && vm.addData.bumen && vm.addData.city && vm.addData.club && vm.addData.active) {
-						mui.ajax('/adduser', {
-							data: {
+					if (vm.addData.name && vm.addData.phone && vm.addData.bumen.text && vm.addData.city.text && vm.addData.club.text && vm.addData.active.text) {
+						localStorage.setItem("indoorData",JSON.stringify({
 								name: vm.addData.name,
-								department: vm.addData.department,
+								phone: vm.addData.phone,
+								department: vm.addData.bumen,
 								city: vm.addData.city,
 								club: vm.addData.club,
 								active: vm.addData.active,
+							}));
+						mui.ajax('/adduser', {
+							data: {
+								name: vm.addData.name,
+								department: vm.addData.department.text,
+								city: vm.addData.city.text,
+								club: vm.addData.club.text,
+								active: vm.addData.active.text,
 								pageid: 1
 							},
 							dataType: 'json', //服务器返回json格式数据
@@ -305,6 +336,13 @@
 							success: function(data) {
 								if (data.result == 0) {
 									mui.alert('恭喜您报名成功');
+									localStorage.setItem("indoorData",JSON.stringify({
+								name: vm.addData.name,
+								department: vm.addData.department.text,
+								city: vm.addData.city.text,
+								club: vm.addData.club.text,
+								active: vm.addData.active.text,
+							}));
 								} else {
 									mui.toast(data.reason, {
 										type: 'div'
