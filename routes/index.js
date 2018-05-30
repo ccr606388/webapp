@@ -44,11 +44,11 @@ router.use('/adduser', function (req, res, next) {
     var temId = req.query.pageid || req.body.pageid;
     var query = {};
 
-    if (pageid == 1) {
+    if (temId == 1) {
         query.name = req.body.name,
         query.phone = req.body.phone
     }
-    else if (pageid == 2) {
+    else if (temId == 2) {
 
     }
 
