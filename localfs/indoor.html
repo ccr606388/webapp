@@ -35,7 +35,7 @@
 					<div class="mui-input-row">
 						<input type="text" placeholder="请选择活动" readonly @tap="selectActive" v-show="picker4" v-model="addData.active.text">
 					</div>
-					<img class="submitBtn" src="img/indoor_btn.png" @tap="submitData" />
+					<img class="submitBtn" src="img/active_btn.png" @tap="submitData" />
 				</form>
 			</div>
 
@@ -310,18 +310,11 @@
 				},
 				submitData: function() {
 					if (vm.addData.name && vm.addData.phone && vm.addData.bumen.text && vm.addData.city.text && vm.addData.club.text && vm.addData.active.text) {
-						localStorage.setItem("indoorData",JSON.stringify({
-								name: vm.addData.name,
-								phone: vm.addData.phone,
-								department: vm.addData.bumen,
-								city: vm.addData.city,
-								club: vm.addData.club,
-								active: vm.addData.active,
-							}));
 						mui.ajax('/adduser', {
 							data: {
 								name: vm.addData.name,
-								department: vm.addData.department.text,
+								phone: vm.addData.phone,
+								department: vm.addData.bumen.text,
 								city: vm.addData.city.text,
 								club: vm.addData.club.text,
 								active: vm.addData.active.text,
@@ -338,10 +331,11 @@
 									mui.alert('恭喜您报名成功');
 									localStorage.setItem("indoorData",JSON.stringify({
 								name: vm.addData.name,
-								department: vm.addData.department.text,
-								city: vm.addData.city.text,
-								club: vm.addData.club.text,
-								active: vm.addData.active.text,
+								phone: vm.addData.phone,
+								department: vm.addData.bumen,
+								city: vm.addData.city,
+								club: vm.addData.club,
+								active: vm.addData.active,
 							}));
 								} else {
 									mui.toast(data.reason, {

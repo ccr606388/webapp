@@ -8,7 +8,7 @@ body {
 }
 
 .bg {
-	background: url('../img/indoor_bg.png') no-repeat;
+	background: url('../img/active_bg.png') no-repeat;
 	background-size: 100% auto;
 	background-position-x: center;
 }
@@ -19,7 +19,7 @@ body {
 }
 
 form input {
-	background: url('../img/indoor_input.png') no-repeat !important;
+	background: url('../img/active_input.png') no-repeat !important;
 	background-size: 100% 100% !important;
 }
 form input[type=text]{

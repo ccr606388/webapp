@@ -7,15 +7,370 @@
 		<title></title>
 		<script src="js/mui.min.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="css/p2.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/outdoor.css" />
+		<script src="js/mui.picker.min.js"></script>
+		<script src="js/vue.min.js"></script>
 	</head>
 
-	<body>
-		<div class="wrapper">
-			outdoor
+	<body class="bg">
+		<div id="app">
+			<div class="wrapper">
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<input type="text" placeholder="请输入姓名" v-model="addData.name">
+					</div>
+					<div class="mui-input-row">
+						<input type="text" placeholder="请选择部门" readonly @tap="selctBumen" v-model="addData.bumen.text">
+					</div>
+					<div class="mui-input-row">
+						<input type="text" placeholder="请选择城市" readonly @tap="selectCity" v-model="addData.city.text">
+					</div>
+					<div class="mui-input-row">
+						<input type="text" placeholder="请选择俱乐部" readonly @tap="selectClub" v-show="picker3" v-model="addData.club.text">
+					</div>
+					<div class="mui-input-row">
+						<input type="text" placeholder="请选择活动" readonly @tap="selectActive" v-show="picker4" v-model="addData.active.text">
+					</div>
+					<img class="modalBtn" src="img/outdoor_btn.png"/>
+					<img class="submitBtn" src="img/active_btn.png" @tap="submitData" />
+				</form>
+			</div>
+
 		</div>
 	</body>
-<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+		var bumenPicker = undefined,
+			cityPicker = undefined,
+			clubPicker = undefined,
+			activePicker = undefined;
+		var bumenData = [{
+				value: 'AS(售后)',
+				text: 'AS(售后)'
+			}, {
+				value: 'Compliance(合规)',
+				text: 'Compliance(合规)'
+			}, {
+				value: 'F&C(财务和控制)',
+				text: 'F&C(财务和控制)'
+			}, {
+				value: 'HR/Administration(人力资源与行政)',
+				text: 'HR/Administration(人力资源与行政)'
+			}, {
+				value: 'ND(网络发展)',
+				text: 'ND(网络发展)'
+			}, {
+				value: 'PC&TU(党务工会)',
+				text: 'PC&TU(党务工会)'
+			}, {
+				value: 'PM(产品管理)',
+				text: 'PM(产品管理)'
+			}, {
+				value: 'PO(总经办)',
+				text: 'PO(总经办)'
+			}, {
+				value: 'PR(公关部)',
+				text: 'PR(公关部)'
+			}, {
+				value: 'S&M(销售和市场)',
+				text: 'S&M(销售和市场)'
+			}, {
+				value: 'Sales Operations Smart/AMG/V-Class&Vito(V级车及Vito销售运营)',
+				text: 'Sales Operations Smart/AMG/V-Class&Vito(V级车及Vito销售运营)'
+			}, {
+				value: '其他',
+				text: '其他'
+			}];
+		var activeData = [{
+				value: '0',
+				text: '北京',
+				tabs: [{
+					value: '0',
+					text: '户外俱乐部',
+					tabs: [{
+						value: '0',
+						text: '徒步'
+					},{
+						value: '1',
+						text: '攀岩'
+					},{
+						value: '2',
+						text: '骑行'
+					},{
+						value: '3',
+						text: '皮划艇'
+					},{
+						value: '4',
+						text: '马术'
+					}]
+				},{
+					value: '1',
+					text: '生活方式俱乐部',
+					tabs: [{
+						value: '0',
+						text: '滑雪'
+					}]
+				},{
+					value: '2',
+					text: '摄影俱乐部',
+					tabs: [{
+						value: '0',
+						text: '摄影理论'
+					},{
+						value: '1',
+						text: '摄影棚拍'
+					},{
+						value: '2',
+						text: '摄影外拍'
+					}]
+				}, {
+					value: '3',
+					text: '志愿者俱乐部',
+					tabs: [{
+						value: '0',
+						text: '儿童希望之家'
+					},{
+						value: '1',
+						text: '流浪动物关爱'
+					},{
+						value: '2',
+						text: '义拍义卖'
+					}]
+				},
+				{
+					value: '4',
+					text: '亲子俱乐部',
+					tabs: [{
+						value: '0',
+						text: '亲子户外主题party'
+					},{
+						value: '1',
+						text: '亲子木偶剧'
+					}]
+				}]
+			}, {
+				value: '1',
+				text: '成都',
+				tabs: [{
+					value: '0',
+					text: '生活方式俱乐部',
+					tabs: [{
+						value: '0',
+						text: '攀岩'
+					}]
+				}]
+			},{
+				value: '2',
+				text: '广州',
+				tabs: [{
+					value: '0',
+					text: '生活方式俱乐部',
+					tabs: [{
+						value: '0',
+						text: '卡丁车'
+					},{
+						value: '1',
+						text: '马术'
+					},{
+						value: '2',
+						text: '钓鱼及野趣'
+					},{
+						value: '3',
+						text: '皮划艇'
+					}]
+				},{
+					value: '1',
+					text: '亲子俱乐部',
+					tabs: [{
+						value: '0',
+						text: '番禺茂德公草堂(亲子)'
+					},{
+						value: '1',
+						text: '亲子户外主题party'
+					},{
+						value: '2',
+						text: '亲子木偶剧'
+					},{
+						value: '3',
+						text: '森元纪法式西点(亲子)'
+					}]
+				}]
+			},{
+				value: '3',
+				text: '上海',
+				tabs: [{
+					value: '0',
+					text: '户外俱乐部',
+					tabs: [{
+						value: '0',
+						text: '骑行'
+					},{
+						value: '1',
+						text: '马术'
+					},{
+						value: '2',
+						text: '徒步'
+					},{
+						value: '3',
+						text: '滑冰'
+					}]
+				},{
+					value: '1',
+					text: '亲子俱乐部',
+					tabs: [{
+						value: '0',
+						text: '锦江乐园(亲子)'
+					},{
+						value: '1',
+						text: '未来生活体验馆(亲子)'
+					},{
+						value: '2',
+						text: '儿童剧场'
+					},{
+						value: '3',
+						text: '红酒品鉴'
+					}]
+				}]
+			}];
+			
+		var outdoorData = localStorage.getItem("outdoorData");
+		if(outdoorData){
+			outdoorData = JSON.parse(outdoorData);
+			outdoorData = {
+				picker3: true,
+				picker4: true,
+				addData:{
+					name: outdoorData.name,
+					phone: outdoorData.phone,
+					bumen: outdoorData.department,
+					city: outdoorData.city,
+					club: outdoorData.club,
+					active:outdoorData.active
+				}
+				}
+		}else{
+			outdoorData = {
+				picker3: false,
+				picker4: false,
+				addData: {
+					name: '',
+					phone: '',
+					bumen: '',
+					city: '',
+					club: '',
+					active: ''
+				}
+					
+				}
+		}
+		var vm = new Vue({
+			el: '#app',
+			data: outdoorData,
+			watch: {
+				'addData.city': function(val, oldval) {
+					vm.picker3 = true;
+					vm.addData.club = '';
+					vm.addData.active = '';
+					vm.picker4 = false;
+				},
+				'addData.club': function(val, oldval) {
+					if (val) {
+						vm.picker4 = true;
+						vm.addData.active = '';
+					}
+				}
+			},
+			methods: {
+				selctBumen: function() {
+					bumenPicker = new mui.PopPicker();
+					bumenPicker.setData(bumenData);
+					if (vm.addData.bumen) {
+						bumenPicker.pickers[0].setSelectedValue(vm.addData.bumen.value);
+					}
+					bumenPicker.show(function(items) {
+						vm.addData.bumen = items[0];
+					});
+				},
+				selectCity: function() {
+					cityPicker = new mui.PopPicker();
+					cityPicker.setData(activeData);
+					if (vm.addData.city) {
+						cityPicker.pickers[0].setSelectedValue(vm.addData.city.value);
+					}
+					cityPicker.show(function(items) {
+						vm.addData.city = items[0];
+					});
+				},
+				selectClub: function() {
+					clubPicker = new mui.PopPicker();
+					clubPicker.setData(activeData[vm.addData.city.value].tabs);
+					if (vm.addData.club) {
+						clubPicker.pickers[0].setSelectedValue(vm.addData.club.value);
+					}
+					clubPicker.show(function(items) {
+						vm.addData.club = items[0];
+					});
+				},
+				selectActive: function() {
+					activePicker = new mui.PopPicker();
+					activePicker.setData(activeData[vm.addData.city.value].tabs[vm.addData.club.value].tabs);
+					if (vm.addData.active) {
+						activePicker.pickers[0].setSelectedValue(vm.addData.active.value);
+					}
+					activePicker.show(function(items) {
+						vm.addData.active = items[0];
+					});
+				},
+				submitData: function() {
+//					if (vm.addData.name && vm.addData.phone && vm.addData.bumen.text && vm.addData.city.text && vm.addData.club.text && vm.addData.active.text) {
+//						mui.ajax('/adduser', {
+//							data: {
+//								name: vm.addData.name,
+//								phone: vm.addData.phone,
+//								department: vm.addData.bumen.text,
+//								city: vm.addData.city.text,
+//								club: vm.addData.club.text,
+//								active: vm.addData.active.text,
+//								pageid: 1
+//							},
+//							dataType: 'json', //服务器返回json格式数据
+//							type: 'post', //HTTP请求类型
+//							timeout: 10000, //超时时间设置为10秒；
+//							headers: {
+//								'Content-Type': 'application/json'
+//							},
+//							success: function(data) {
+//								if (data.result == 0) {
+//									mui.alert('恭喜您报名成功');
+//									localStorage.setItem("indoorData",JSON.stringify({
+//								name: vm.addData.name,
+//								phone: vm.addData.phone,
+//								department: vm.addData.bumen,
+//								city: vm.addData.city,
+//								club: vm.addData.club,
+//								active: vm.addData.active,
+//							}));
+//								} else {
+//									mui.toast(data.reason, {
+//										type: 'div'
+//									});
+//								}
+//							},
+//							error: function(xhr, type, errorThrown) {
+//								mui.toast('请求发送失败', {
+//									type: 'div'
+//								});
+//							}
+//						});
+//					} else {
+//						mui.toast('请完整填写表单', {
+//							type: 'div'
+//						});
+//					}
+				}
+			}
+		});
+	</script>
+
 </html>
