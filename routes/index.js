@@ -136,7 +136,7 @@ router.use('/exportexcel', function (req, res, next) {
                 res.status(err.status).end();
             }
             else {
-                console.log('Sent:', fileName);
+                console.log('Sent success');
             }
         });
     })
