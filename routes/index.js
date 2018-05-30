@@ -43,10 +43,14 @@ router.use('/adduser', function (req, res, next) {
     console.log("access adduser");
     var temId = req.query.pageid || req.body.pageid;
     var query = {};
+    var a = new Date(Date.now()+8*60*60*1000);
+    var time = a.getFullYear().toString()+(a.getMonth()+1).toString()+a.getDate().toString()
 
+    req.body.time = time
     if (temId == 1) {
         query.name = req.body.name,
-        query.phone = req.body.phone
+        query.phone = req.body.phone,
+        query.time = time
     }
     else if (temId == 2) {
 
