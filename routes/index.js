@@ -130,6 +130,7 @@ router.use('/exportexcel', function (req, res, next) {
         //   };
         // application/vnd.ms-excel
         // var fileName = req.params.name;
+        res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
         res.sendFile('/file/test1.xlsx', function (err) {
             if (err) {
                 console.log(err);
