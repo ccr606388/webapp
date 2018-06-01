@@ -128,12 +128,13 @@ router.use('/exportexcel', function (req, res, next) {
         //         'x-sent': true
         //     }
         //   };
-
+        // application/vnd.ms-excel
         // var fileName = req.params.name;
         res.sendFile('/file/test1.xlsx', function (err) {
             if (err) {
                 console.log(err);
-                res.status(err.status).end();
+                response.writeHead(200, {"Content-Type": "application/vnd.ms-excel"}).end();
+                // res.status(err.status).end();
             }
             else {
                 console.log('Sent:success');
