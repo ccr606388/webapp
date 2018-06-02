@@ -6,26 +6,6 @@ var fs = require('fs');
 var TEMPLATE_CFG = "template_conf";
 var TEMPLATE = "template";
 
-router.use('/cfgtemplate', function (req, res, next) {
-    var conf = req.body;
-    if (!conf) {
-        res.json({
-            result: 1,
-            reason: "cfg is null"
-        });
-    }
-    var temId = req.query.pageid || req.body.pageid;
-    console.log(conf);
-    console.log(temId);
-    // console.log("access cfgtemplate");
-    dboper.dbUpsert(TEMPLATE_CFG, { pageid: temId }, conf, function (err) {
-        res.json({
-            result: err ? 1 : 0,
-            reason: err ? "failed with err: " + JSON.stringify(err) : "success"
-        })
-    });
-});
-
 router.get('/gettemplate', function (req, res, next) {
     console.log("access gettemplate");
     var temId = req.query.pageid || req.body.pageid;
@@ -44,13 +24,13 @@ router.use('/adduser', function (req, res, next) {
     var temId = req.query.pageid || req.body.pageid;
     var query = {};
     var a = new Date(Date.now());
-    var time = a.getFullYear().toString()+(a.getMonth()+1).toString()+a.getDate().toString()
+    var time = a.getFullYear().toString() + (a.getMonth() + 1).toString() + a.getDate().toString()
 
     req.body.time = time
     if (temId == 1) {
         query.name = req.body.name,
-        query.phone = req.body.phone,
-        query.time = time
+            query.phone = req.body.phone,
+            query.time = time
     }
     else if (temId == 2) {
 
@@ -63,6 +43,21 @@ router.use('/adduser', function (req, res, next) {
         })
     });
 })
+
+router.use('/login', function (req, res, next) {
+    if (req.body.username == "admin" && req.body.password == "admin") {
+        req.session && (req.session.pass = "passed")
+        res.redirect("/admin/private");
+    }
+    else {
+        res.json({
+            result:1, 	//failed
+            reason:"username or password error"
+        })
+    }
+})
+
+//----------------------------------------------------need auth--------------------------------------------------------------
 
 router.use('/listuser', function (req, res, next) {
     console.log("access listuser");
@@ -93,6 +88,26 @@ router.use('/clearData', function (req, res, next) {
         })
     })
 })
+
+router.use('/cfgtemplate', function (req, res, next) {
+    var conf = req.body;
+    if (!conf) {
+        res.json({
+            result: 1,
+            reason: "cfg is null"
+        });
+    }
+    var temId = req.query.pageid || req.body.pageid;
+    console.log(conf);
+    console.log(temId);
+    // console.log("access cfgtemplate");
+    dboper.dbUpsert(TEMPLATE_CFG, { pageid: temId }, conf, function (err) {
+        res.json({
+            result: err ? 1 : 0,
+            reason: err ? "failed with err: " + JSON.stringify(err) : "success"
+        })
+    });
+});
 
 router.use('/exportexcel', function (req, res, next) {
     console.log("access listuser");
@@ -134,7 +149,7 @@ router.use('/exportexcel', function (req, res, next) {
         res.sendFile('/file/test1.xlsx', function (err) {
             if (err) {
                 console.log(err);
-                response.writeHead(200, {"Content-Type": "application/vnd.ms-excel"}).end();
+                response.writeHead(200, { "Content-Type": "application/vnd.ms-excel" }).end();
                 // res.status(err.status).end();
             }
             else {
