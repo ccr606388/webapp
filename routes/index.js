@@ -60,7 +60,7 @@ router.use('/login', function (req, res, next) {
 //----------------------------------------------------need auth--------------------------------------------------------------
 
 router.use(function (req, res, next) {
-    if (req.session && req, session.pass == "passed") {
+    if (req.session && req.session.pass == "passed") {
         next();
     } else {
         res.redirect("/admin/public")
