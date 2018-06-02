@@ -51,13 +51,21 @@ router.use('/login', function (req, res, next) {
     }
     else {
         res.json({
-            result:1, 	//failed
-            reason:"username or password error"
+            result: 1, 	//failed
+            reason: "username or password error"
         })
     }
 })
 
 //----------------------------------------------------need auth--------------------------------------------------------------
+
+router.use(function (req, res, next) {
+    if (req.session && req, session.pass == "passed") {
+        next();
+    } else {
+        res.redirect("/admin/public")
+    }
+})
 
 router.use('/listuser', function (req, res, next) {
     console.log("access listuser");
