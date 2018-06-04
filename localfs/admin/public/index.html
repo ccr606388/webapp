@@ -34,9 +34,15 @@
 		var name = $("#name").val();
 		var pas = $("#password").val();
 		if(!name || !pas){
+			alert("请输入用户名和密码");
 			return;
 		}else{
-			alert()
+			$.post('/login',{username:name,passowrd:pas},
+			function(data,s){
+				if(data.result == 1){
+					alert('用户名或密码错误');
+				}
+			})
 		}
 	})
 </script>
