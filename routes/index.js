@@ -47,7 +47,7 @@ router.use('/adduser', function (req, res, next) {
 router.use('/login', function (req, res, next) {
     if (req.body.username == "admin" && req.body.password == "admin") {
         req.session && (req.session.pass = "passed")
-        res.redirect("/admin/private");
+        res.redirect("/admin/private/index.html");
     }
     else {
         res.json({
@@ -63,7 +63,7 @@ router.use(function (req, res, next) {
     if (req.session && req.session.pass == "passed") {
         next();
     } else {
-        res.redirect("/admin/public")
+        res.redirect("/admin/public/index.html")
     }
 })
 
