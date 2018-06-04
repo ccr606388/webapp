@@ -39,7 +39,7 @@
 			}else{
 				$.ajax('/login', {
 	    			type: 'post',
-	    			data: {username:name,passowrd:pas}, 
+	    			data: JSON.stringify({username:name,passowrd:pas}), 
 	    			headers: {
 									'Content-Type': 'application/json'
 								},
