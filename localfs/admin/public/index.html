@@ -29,21 +29,28 @@
 			</form>
 		</div>
 	</body>
-<script>
-	$("#submitData").click(function(){
-		var name = $("#name").val();
-		var pas = $("#password").val();
-		if(!name || !pas){
-			alert("请输入用户名和密码");
-			return;
-		}else{
-			$.post('/login',{username:name,passowrd:pas},
-			function(data,s){
-				if(data.result == 1){
-					alert('用户名或密码错误');
-				}
-			})
-		}
-	})
-</script>
+	<script>
+		$("#submitData").click(function(){
+			var name = $("#name").val();
+			var pas = $("#password").val();
+			if(!name || !pas){
+				alert("请输入用户名和密码");
+				return;
+			}else{
+				$.ajax('/login', {
+	    			type: 'post',
+	    			data: {username:name,passowrd:pas}, 
+	    			headers: {
+									'Content-Type': 'application/json'
+								},
+	    			success: function(data){
+	    				if(data.result == 1){
+							alert('用户名或密码错误');
+						}
+	    			}
+				});
+			}
+		})
+	</script>
+
 </html>

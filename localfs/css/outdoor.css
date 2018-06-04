@@ -64,3 +64,29 @@ input:-moz-placeholder {
 input:-ms-input-placeholder {
 	color: #ffffff;
 }
+.modal{
+	height: 100%;
+	width: 100%;
+	padding: 20px;
+	color: #151a29;
+	text-align: left;
+}
+.modal .box{
+	height: 100%;
+	width: 100%;
+	background: #ffffff;
+}
+.modal .box .title{
+	height: 40px;
+	line-height: 40px;
+	background: #f0f0f0;
+	padding-left: 25px;
+}
+.modal .box .content{
+	padding-left: 25px;
+	padding-right: 25px;
+	line-height: 35px;
+}
+.modal .box .content .div{
+	
+}

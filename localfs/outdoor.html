@@ -32,9 +32,27 @@
 					<div class="mui-input-row">
 						<input type="text" placeholder="请选择活动" readonly @tap="selectActive" v-show="picker4" v-model="addData.active.text">
 					</div>
-					<img class="modalBtn" src="img/outdoor_btn.png"/>
+					<img class="modalBtn" src="img/outdoor_btn.png" @tap="openModal"/>
 					<img class="submitBtn" src="img/active_btn.png" @tap="submitData" />
 				</form>
+				<div class="mui-backdrop">
+					<div class="modal">
+						<div class="box">
+							<div class="title">
+								完善信息
+							</div>
+							<div class="content">
+								<div>
+									本人信息(必填)
+								</div>
+								<div>
+									身份证：<input type="text" style="height: 34px;width: 250px;"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
 			</div>
 
 		</div>
@@ -321,6 +339,12 @@
 					activePicker.show(function(items) {
 						vm.addData.active = items[0];
 					});
+				},
+				openModal:function(){
+					
+				},
+				closeModal:function(){
+					
 				},
 				submitData: function() {
 //					if (vm.addData.name && vm.addData.phone && vm.addData.bumen.text && vm.addData.city.text && vm.addData.club.text && vm.addData.active.text) {
