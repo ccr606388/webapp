@@ -22,12 +22,26 @@ var sess = {
 app.use(logger('dev'));
 
 // parse application/json
-app.use(express.static(path.join(__dirname, 'localfs')));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
-
 app.use(session(sess))
+
+app.use(function (req, res, next) {
+  if (req.path.indexOf("private") == -1) {
+    next()
+  }
+  else {
+    if (req.session && req.session.pass == "passed") {
+      next();
+    } else {
+      res.redirect("/admin/public/index.html")
+    }
+  }
+})
+
+app.use(express.static(path.join(__dirname, 'localfs')));
+
 
 app.use('/', indexRouter);
 
