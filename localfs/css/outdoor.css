@@ -70,6 +70,7 @@ input:-ms-input-placeholder {
 	padding: 20px;
 	color: #151a29;
 	text-align: left;
+	font-size: 14px;
 }
 .modal .box{
 	height: 100%;
@@ -87,6 +88,39 @@ input:-ms-input-placeholder {
 	padding-right: 25px;
 	line-height: 35px;
 }
-.modal .box .content .div{
+.from-group {
+	padding-left: 55px;
+    position: relative;
+    margin-bottom: -10px;
+}
+.from-group label{
+	position: absolute;
+	left: 0;
+}
+.from-group input{
+	height: 34px;
+	width: 100%;
 	
+}
+.from-group-radio{
+	padding-left: 45px;
+	position: relative;
+}
+.from-group-radio .label{
+	position: absolute;
+	left: 0;
+}
+.mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before {
+	font-size: 14px;
+}
+.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+	width: 14px;
+	height: 14px;
+	top: 5px;
+}
+.mui-checkbox.mui-left label, .mui-radio.mui-left label{
+	padding-left: 45px;
+}
+.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+    color: #28c2a3;
 }
