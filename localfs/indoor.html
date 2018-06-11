@@ -269,6 +269,7 @@
 			},
 			methods: {
 				selctBumen: function() {
+					document.activeElement.blur();
 					bumenPicker = new mui.PopPicker();
 					bumenPicker.setData(bumenData);
 					if (vm.addData.bumen) {
@@ -279,6 +280,7 @@
 					});
 				},
 				selectCity: function() {
+					document.activeElement.blur();
 					cityPicker = new mui.PopPicker();
 					cityPicker.setData(activeData);
 					if (vm.addData.city) {
@@ -289,6 +291,7 @@
 					});
 				},
 				selectClub: function() {
+					document.activeElement.blur();
 					clubPicker = new mui.PopPicker();
 					clubPicker.setData(activeData[vm.addData.city.value].tabs);
 					if (vm.addData.club) {
@@ -299,6 +302,7 @@
 					});
 				},
 				selectActive: function() {
+					document.activeElement.blur();
 					activePicker = new mui.PopPicker();
 					activePicker.setData(activeData[vm.addData.city.value].tabs[vm.addData.club.value].tabs);
 					if (vm.addData.active) {
