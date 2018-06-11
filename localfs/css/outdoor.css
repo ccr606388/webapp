@@ -5,7 +5,7 @@ body {
 	color: #ffffff;
 	font-size: 16px;
 	position: relative;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 .bg {
