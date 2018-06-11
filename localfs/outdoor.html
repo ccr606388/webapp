@@ -35,60 +35,87 @@
 					<img class="modalBtn" src="img/outdoor_btn.png" @tap="openModal"/>
 					<img class="submitBtn" src="img/active_btn.png" @tap="submitData" />
 				</form>
-				<div class="mui-backdrop">
+				<div class="mui-backdrop" v-show="modalShow">
 					<div class="modal">
 						<div class="box">
 							<div class="title">
 								完善信息
 							</div>
-							<div class="content">
+							<div class="content"  v-bind:style="{height: height + 'px' ,overflow: 'auto'}">
 								<div>
 									本人信息(必填)
 								</div>
 								<div class="from-group">
 									<label>身份证</label>
-									 <input type="text"/>
+									 <input type="text" v-model="addData.idCard"/>
 								</div>
 								<div class="from-group-radio">
 									<label class="label">性别</label>
 									<div class="mui-row">
 										<div class="mui-col-xs-4 mui-radio mui-left">
 										<label>男</label>
-										<input name="radio1" type="radio">
+										<input name="radio1" type="radio" v-model="addData.sex" value="男">
 									</div> 
 									<div class="mui-col-xs-4 mui-radio mui-left">
 										<label>女</label>
-										<input name="radio1" type="radio">
+										<input name="radio1" type="radio" v-model="addData.sex" value="女">
 									</div> 
 									</div>
 									
 								</div>
-								<div>
+								<div style="margin-bottom: 5px;">
 									家属信息(没有可不填)
 								</div>
-								<div class="from-group" style="margin-bottom: -3px;">
+								<div style="padding-bottom: 20px;" v-show="addData.members.length">
+									<button type="button" style="margin-right: 10px;" class="mui-btn mui-btn-primary mui-btn-outlined" v-for="(member,index) in addData.members">
+										{{member.name}}
+										<span class="mui-icon mui-icon-closeempty" style="font-size: 18px;padding-left: 10px;" @tap="delMember(index)"></span>
+									</button>
+								</div>
+								<div class="from-group">
 									<label>姓名</label>
-									 <input type="text"/>
+									 <input type="text" v-model="family.name"/>
 								</div>
 								<div class="from-group">
 									<label>身份证</label>
-									 <input type="text"/>
+									 <input type="text" v-model="family.idCard"/>
 								</div>
 								<div class="from-group-radio">
 									<label class="label">性别</label>
 									<div class="mui-row">
 										<div class="mui-col-xs-4 mui-radio mui-left">
 										<label>男</label>
-										<input name="radio1" type="radio">
+										<input name="radio2" type="radio" v-model="family.sex" value="男">
 									</div> 
 									<div class="mui-col-xs-4 mui-radio mui-left">
 										<label>女</label>
-										<input name="radio1" type="radio">
+										<input name="radio2" type="radio" v-model="family.sex" value="女">
 									</div> 
 									</div>
-									
 								</div>
-								
+								<div style="padding: 15px 0 25px 0;">
+									<div class="addBtn" @tap="addMember">添加家属</div>
+								</div>
+								<div class="from-group">
+									<label>电话</label>
+									 <input type="text" v-model="addData.phone"/>
+								</div>
+								<div class="from-group-radio" style="padding-left: 85px;">
+									<label class="label">是否乘坐大巴</label>
+									<div class="mui-row">
+										<div class="mui-col-xs-6 mui-radio mui-left">
+										<label>是</label>
+										<input name="radio3" type="radio" v-model="addData.car" value="是">
+									</div> 
+									<div class="mui-col-xs-6 mui-radio mui-left">
+										<label>否</label>
+										<input name="radio3" type="radio" v-model="addData.car" value="否">
+									</div> 
+									</div>
+								</div>
+								<div style="text-align: center;">
+									<img class="modalBtn" src="img/outdoor_modal.png" style="margin-top: 20px;" @tap="closeModal"/>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -299,27 +326,45 @@
 			outdoorData = {
 				picker3: true,
 				picker4: true,
+				modalShow: false,
 				addData:{
 					name: outdoorData.name,
 					phone: outdoorData.phone,
 					bumen: outdoorData.department,
 					city: outdoorData.city,
 					club: outdoorData.club,
-					active:outdoorData.active
-				}
-				}
+					active:outdoorData.active,
+					sex: outdoorData.sex,
+					members: outdoorData.members,
+					car: outdoorData.bus,
+					idCard: outdoorData.idCard
+				},
+				family: {
+					sex:'男'
+				},
+				height: window.screen.height-80
+			}
 		}else{
 			outdoorData = {
 				picker3: false,
 				picker4: false,
+				modalShow: false,
 				addData: {
 					name: '',
 					phone: '',
 					bumen: '',
 					city: '',
 					club: '',
-					active: ''
-				}
+					active: '',
+					sex: '男',
+					members:[],
+					car: '是',
+					idCard: ''
+				},
+				family:{
+					sex:'男'
+				},
+				height: window.screen.height-80
 					
 				}
 		}
@@ -382,57 +427,92 @@
 					});
 				},
 				openModal:function(){
-					
+					vm.modalShow = true;
 				},
 				closeModal:function(){
-					
+					var idCard = vm.addData.idCard;
+					var sex = vm.addData.sex;
+					var phone = vm.addData.phone;
+					var car = vm.addData.car;
+					if(!idCard || !sex || !phone || !car){
+						mui.toast('请完善信息', {
+							type: 'div'
+						});
+						return;
+					}
+					vm.modalShow = false;
+				},
+				addMember:function(){
+					var name = vm.family.name;
+					var idCard = vm.family.idCard;
+					var sex = vm.family.sex;
+					if(!name || !idCard || !sex){
+						mui.toast('请填写家属信息', {
+							type: 'div'
+						});
+						return;
+					}
+					vm.addData.members.push({
+						name: name,
+						idCard: idCard,
+						sex: sex
+					})
+				},
+				delMember: function(i){
+					vm.addData.members.splice(i,1);
 				},
 				submitData: function() {
-//					if (vm.addData.name && vm.addData.phone && vm.addData.bumen.text && vm.addData.city.text && vm.addData.club.text && vm.addData.active.text) {
-//						mui.ajax('/adduser', {
-//							data: {
-//								name: vm.addData.name,
-//								phone: vm.addData.phone,
-//								department: vm.addData.bumen.text,
-//								city: vm.addData.city.text,
-//								club: vm.addData.club.text,
-//								active: vm.addData.active.text,
-//								pageid: 1
-//							},
-//							dataType: 'json', //服务器返回json格式数据
-//							type: 'post', //HTTP请求类型
-//							timeout: 10000, //超时时间设置为10秒；
-//							headers: {
-//								'Content-Type': 'application/json'
-//							},
-//							success: function(data) {
-//								if (data.result == 0) {
-//									mui.alert('恭喜您报名成功');
-//									localStorage.setItem("indoorData",JSON.stringify({
-//								name: vm.addData.name,
-//								phone: vm.addData.phone,
-//								department: vm.addData.bumen,
-//								city: vm.addData.city,
-//								club: vm.addData.club,
-//								active: vm.addData.active,
-//							}));
-//								} else {
-//									mui.toast(data.reason, {
-//										type: 'div'
-//									});
-//								}
-//							},
-//							error: function(xhr, type, errorThrown) {
-//								mui.toast('请求发送失败', {
-//									type: 'div'
-//								});
-//							}
-//						});
-//					} else {
-//						mui.toast('请完整填写表单', {
-//							type: 'div'
-//						});
-//					}
+					if (vm.addData.name && vm.addData.phone && vm.addData.bumen.text && vm.addData.city.text && vm.addData.club.text && vm.addData.active.text &&vm.addData.idCard && vm.addData.car) {
+						mui.ajax('/adduser', {
+							data: {
+								name: vm.addData.name,
+								phone: vm.addData.phone,
+								department: vm.addData.bumen.text,
+								city: vm.addData.city.text,
+								club: vm.addData.club.text,
+								active: vm.addData.active.text,
+								idCard: vm.addData.idCard,
+								bus: vm.addData.car,
+								members: vm.addData.members,
+								pageid: 2
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							success: function(data) {
+								if (data.result == 0) {
+									mui.alert('恭喜您报名成功');
+									localStorage.setItem("outdoorData",JSON.stringify({
+										name: vm.addData.name,
+										phone: vm.addData.phone,
+										department: vm.addData.bumen,
+										city: vm.addData.city,
+										club: vm.addData.club,
+										active: vm.addData.active,
+										idCard: vm.addData.idCard,
+										bus: vm.addData.car,
+										members: vm.addData.members,
+									}));
+								} else {
+									mui.toast(data.reason, {
+										type: 'div'
+									});
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.toast('请求发送失败', {
+									type: 'div'
+								});
+							}
+						});
+					} else {
+						mui.toast('请完整填写表单', {
+							type: 'div'
+						});
+					}
 				}
 			}
 		});

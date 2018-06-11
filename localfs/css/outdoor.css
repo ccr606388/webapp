@@ -91,7 +91,7 @@ input:-ms-input-placeholder {
 .from-group {
 	padding-left: 55px;
     position: relative;
-    margin-bottom: -10px;
+    margin-bottom: 5px;
 }
 .from-group label{
 	position: absolute;
@@ -105,6 +105,7 @@ input:-ms-input-placeholder {
 .from-group-radio{
 	padding-left: 45px;
 	position: relative;
+	margin-top: -10px;
 }
 .from-group-radio .label{
 	position: absolute;
@@ -123,4 +124,14 @@ input:-ms-input-placeholder {
 }
 .mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
     color: #28c2a3;
+}
+.addBtn{
+	height: 32px;
+	line-height: 32px;
+	width: 85px;
+	border:solid 1px #085a94;
+	color: #085a94;
+	border-radius: 5px;
+	text-align: center;
+	margin: 0 auto;
 }
