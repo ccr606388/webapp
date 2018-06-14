@@ -128,10 +128,23 @@ router.use('/exportexcel', function (req, res, next) {
         data.forEach(function (v, k) {
             console.log(v)
             console.log(Object.values(v))
+
+            //插入表头
             if (k == 0) {
                 excel.push(Object.keys(v))
             }
+
+            //解析嵌套类型
+            v.forEach(function(v1, k1){
+                if (typeof v1 == "object")
+                {
+                    v1 = v1.toString;
+                    console.log("tostring", v1);
+                }
+            })
+
             excel.push(Object.values(v));
+            console.log("values", Object.values(v));
         });
 
 
