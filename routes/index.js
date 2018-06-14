@@ -141,7 +141,7 @@ router.use('/exportexcel', function (req, res, next) {
                 var v1 = v[k1];
                 if (typeof v1 == "object")
                 {
-                    v1 = v1.toString;
+                    v1 = v1.toString();
                     console.log("tostring", v1);
                 }
                 tempArray.push(v1);
