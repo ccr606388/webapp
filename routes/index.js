@@ -78,6 +78,8 @@ router.use('/listuser', function (req, res, next) {
     var temId = req.body.pageid;
     var fliter = req.body.fliter || {};
     dboper.dbFind(TEMPLATE + "_" + temId, fliter, function (err, data) {
+        console.log("----------1---------------")
+        console.log(JSON.stringify(data));
         res.json({
             result: err ? 1 : 0,
             reason: err ? "failed with err: " + JSON.stringify(err) : "success",
