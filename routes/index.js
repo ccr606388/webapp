@@ -24,7 +24,7 @@ router.use('/adduser', function (req, res, next) {
     var temId = req.query.pageid || req.body.pageid;
     var query = {};
     var a = new Date(Date.now());
-    var time = a.getFullYear().toString() + (a.getMonth() + 1).toString() + a.getDate().toString()
+    var time = a.getFullYear().toString() + "-" +(a.getMonth() + 1).toString() + "-"+ a.getDate().toString()
 
     req.body.time = time
     if (temId == 1) {
@@ -81,7 +81,7 @@ router.use('/listuser', function (req, res, next) {
         res.json({
             result: err ? 1 : 0,
             reason: err ? "failed with err: " + JSON.stringify(err) : "success",
-            msg: data
+            msg: JSON.stringify(data)
         })
     })
 })
