@@ -42,11 +42,7 @@ $('#table').bootstrapTable({
 					'Content-Type': 'application/json'
 				},
 				success: function(data) {
-					if (data.result == 0) {
-						window.open(data.url);
-					} else {
-						alert('文件获取失败');
-					}
+					window.open(data);
 				},
 				error: function() {
 					alert('文件获取失败');
