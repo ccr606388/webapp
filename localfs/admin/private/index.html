@@ -6,7 +6,16 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="css/header.css" />
-		<link rel="stylesheet" type="text/css" href="css/menu.css" />
+		<script src="libs/jquery.min.js"></script>
+		<script src="libs/bootstrap.min.js"></script>
+		<script src="libs/bootstrap-table.min.js"></script>
+		<link rel="stylesheet" href="libs/bootstrap.min.css" />
+		<link rel="stylesheet" href="libs/bootstrap-table.min.css" />
+		<style>
+			table{
+			width: 100%;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -15,30 +24,20 @@
 				后台管理
 			</div>
 			<div class="oasis-header-right">
-				<div class="oasis-header-main">
+				<!--<div class="oasis-header-main">
 					<ul style="padding-left: 20px;">
 						<li class="active">
 							<span>首页</span>
 						</li>
 					</ul>
-				</div>
+				</div>-->
 			</div>
 
 		</div>
-
-		<div class="oasis-menu">
-			<!--<div class="oasis-menu-title" ></div>-->
-			<ul class="menu-second">
-				<li>
-					<div class="active">
-						<span>页面模板</span>
-					</div>
-				</li>
-			</ul>
+		<div style="padding: 60px 220px;">
+		<table id="table" class="table-responsive"></table>
 		</div>
-		
-	
-
+		<script src="js/index.js"></script>
 	</body>
 
 </html>
