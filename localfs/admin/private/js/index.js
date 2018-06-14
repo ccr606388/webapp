@@ -36,7 +36,7 @@ $('#table').bootstrapTable({
 			$.ajax('/exportexcel', {
 				type: 'get',
 				data: {
-					pageid: 1
+					pageid: row.pageid
 				},
 				headers: {
 					'Content-Type': 'application/json'
