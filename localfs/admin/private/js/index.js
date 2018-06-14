@@ -7,7 +7,7 @@ $('#table').bootstrapTable({
 		title: '导出',
 		width: 70,
 		formatter: function(value, row, index) {
-			return '<button type="button" class="btn btn-info">导出</button>';
+			return '<a href="http://59.110.240.161:3000/exportexcel?pageid='+row.pageid+'" class="btn btn-info">导出</a>';
 		}
 	}, {
 		field: 'modify',
@@ -32,22 +32,31 @@ $('#table').bootstrapTable({
 		name: '户外类活动报名页面'
 	}],
 	onClickCell: function(field, value, row, $element) {
-		if (field == 'export') {
-			$.ajax('/exportexcel', {
-				type: 'get',
-				data: {
-					pageid: row.pageid
-				},
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				success: function(data) {
-					window.open(data);
-				},
-				error: function() {
-					alert('文件获取失败');
-				}
-			});
-		}
+//		if (field == 'export') {
+//			$.ajax('/exportexcel', {
+//				type: 'get',
+//				data: {
+//					pageid: row.pageid
+//				},
+//				headers: {
+//					'Content-Type': 'application/json'
+//				},
+//				responseType: 'blob',
+//				success: function(data) {
+//					var a = document.getElementById('alink')
+//					var blob = new Blob([data], {
+//						'type': 'application/vnd.ms-excel'
+//					})
+//					this.downloadUrl = window.URL.createObjectURL(blob)
+//					a.setAttribute('href', this.downloadUrl)
+//					var reportName = 'report.xlsx'
+//					a.setAttribute('download', reportName)
+//					a.click()
+//				},
+//				error: function(data) {
+//					alert('文件获取失败');
+//				}
+//			});
+//		}
 	}
 });
