@@ -135,16 +135,21 @@ router.use('/exportexcel', function (req, res, next) {
             }
 
             //解析嵌套类型
-            v.forEach(function(v1, k1){
+            var tempArray = [];
+            for(var k1 in v)
+            {
+                var v1 = v[k1];
                 if (typeof v1 == "object")
                 {
                     v1 = v1.toString;
                     console.log("tostring", v1);
                 }
-            })
+                tempArray.push(v1);
+            }
 
-            excel.push(Object.values(v));
-            console.log("values", Object.values(v));
+            // excel.push(Object.values(v));
+            excel.push(tempArray);
+            console.log("values", tempArray);
         });
 
 
